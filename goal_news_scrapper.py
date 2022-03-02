@@ -1,13 +1,16 @@
+from statistics import mode
+from typing import List
 from bs4 import BeautifulSoup
 import pprint
+from models.news_article import NewsArticle
 
 pp = pprint.PrettyPrinter()
 
 
-def ScrapNewsArticlesFromGoal(pageData):
+def ScrapNewsArticlesFromGoal(pageData) -> List[NewsArticle]:
     parsedData = BeautifulSoup(pageData.content, "html.parser")
     articles = parsedData.find_all('table', class_='widget-news-card')
-    newsArticles = []
+    newsList = []
     id = 0
     for news in articles:
         id = id+1
@@ -30,13 +33,14 @@ def ScrapNewsArticlesFromGoal(pageData):
         for imageBody in imageTag:
             imgTag = imageBody.find_all('img')
             imgSrc = imgTag[0]['src']
-        newsArticle = {
+        newsItem = {
             'id': id,
-            'main_title': main_title,
-            'sub_tile': sub_title,
-            'link': link,
-            'imgSrc': imgSrc,
-            'postingTime': postingTime
+            'main_title': main_title.strip(),
+            'sub_title': sub_title.strip(),
+            'link': link.strip(),
+            'imgSrc': imgSrc.strip(),
+            'postingTime': postingTime.strip()
         }
-        newsArticles.append(newsArticle)
-    return newsArticles
+        model = NewsArticle(**newsItem)
+        newsList.append(model.dict())
+    return newsList
