@@ -1,0 +1,14 @@
+# app
+fastapi
+uvicorn
+pydantic
+email-validator
+httpx
+requests
+beautifulsoup4
+python-dotenv
+
+#db
+databases
+SQLAlchemy
+alembic

@@ -2,7 +2,7 @@ from statistics import mode
 from typing import List
 from bs4 import BeautifulSoup
 import pprint
-from models.news_article import NewsArticle
+from app.models.news_article import NewsArticle
 
 pp = pprint.PrettyPrinter()
 
